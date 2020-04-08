@@ -7,14 +7,14 @@ workload for a long time.
 It is like a MapReduce approach for a single machine with each CPU as a worker.
 
 Please note that this module only works for a processing task without interdependency but only for tasks that can be executed in parallel.
+
+Its recommended use case is for processing a large list of files where each process can run in parallel and the execution steps are identical for all files
 '''
-from future import __annotation__
+
 from pathlib import Path
 from os import stat
 from operator import itemgetter
-from multiprocessing import cpu_count
 
-CPU = cpu_count()
 
 
 class FilesDistributor:
@@ -79,7 +79,7 @@ class FilesDistributor:
         file_info = stat(file)
         return convert_bytes(file_info.st_size) if byte_prefix else file_info.st_size
 
-    def distribute_list_of_tuples_evenly(self,n=CPU):
+    def distribute_list_of_tuples_evenly(self,n):
         """
         Distributes the files found in the ``file_sizes`` across n different buckets while the difference of total size across the buckets
         is tried to be minimized. Returns a list of n list, where sum(size(n)) is tried to be equal across the the n-th entry
