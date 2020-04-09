@@ -57,6 +57,7 @@ cd test
 python test.py -d data -p y -f txt -s n
 ```
 *Benchmark:* Running the test on a machine with Windows 10, an Intel Core i7-7820 2.9 GHz, 4 kernels, 8 logical processor and 32 GB of RAM, the following run times are achieved:
+
 A directory with 100 files and a total size of 290 MB:
 - Single loop: ~ 40 seconds
 - Parallel loop: ~ 11 seconds
