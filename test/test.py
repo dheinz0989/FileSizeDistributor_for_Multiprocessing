@@ -1,5 +1,6 @@
 import sys
 from multiprocessing import cpu_count, Process
+from pathlib import Path
 import time
 import argparse
 import re
@@ -75,7 +76,7 @@ def process_all_files_in_dir(files_directory):
     for file in files_directory:
         process_file(file)
     end = time.time()
-    print('Finished the single loop processor')
+    print('Finished processing.')
     workaround_run_time(start,end)
 
 
@@ -96,14 +97,23 @@ def parallel_processing(file_directory,n):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Runs the script to process all files.')
     parser.add_argument(
+        "--file_format",
+        "-f",
+        required=False,
+        default ='*',
+        type=str,
+        help="A string to identify which file are to be processed. Use '*' for all files"
+    )
+    parser.add_argument(
         "--directory",
         "-d",
-        required=True,
+        required=False,
+        default='',
         type=str,
         help="A flag indicating the directory with all files"
     )
     parser.add_argument(
-        "--parallel",
+        "--parallel_process",
         "-p",
         default="y",
         type=str,
@@ -118,8 +128,8 @@ if __name__ == "__main__":
         help="Determines in how many buckets the files are going to distributed"
     )
     parser.add_argument(
-        "--mainloop",
-        "-l",
+        "--single_process",
+        "-s",
         default="n",
         type=str,
         choices=["n","y"],
@@ -127,11 +137,13 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    if args.mainloop == "y":
+    if args.single_process == "y":
         print('Processes all files in a single for loop')
-        process_all_files_in_dir(args.directory)
+        p = Path(args.directory).glob('**/*')
+        files_directory = [x for x in p if x.is_file()]
+        process_all_files_in_dir(files_directory)
 
-    if args.parallel == 'y':
+    if args.parallel_process == 'y':
         print('Runs all file in a parallel version')
         parallel_processing(args.directory,args.buckets)
 
