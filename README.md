@@ -40,23 +40,31 @@ To setup 100 random text files with  at least 1.000.000 and 5.000.000 character 
 
 ```
 cd test
-python generate_random_files.py -n 100 -min 1000000 -max 5000000
+python generate_random_files.py -d data -n 100 -min 1000000 -max 5000000
 ```
 
 For run the testing, you can then run the two different version. For the single loop version call 
 
 ```
 cd test
-python test.py -d ./data -p n -l y
+python test.py -d data -p n -f txt -s y
 ```
 
 For the parallel testing version, call:
 
 ```
 cd test
-python test.py -d ./data -p y
+python test.py -d data -p y -f txt -s n
 ```
-This yields a run time of appr 1:40
+*Benchmark:* Running the test on a machine with Windows 10, an Intel Core i7-7820 2.9 GHz, 4 kernels, 8 logical processor and 32 GB of RAM, the following run times are achieved:
+A directory with 100 files and a total size of 290 MB:
+- Single loop: ~ 40 seconds
+- Parallel loop: ~ 11 seconds
+
+A directory with 100 files and a total size of 2.34 GB
+- Single loop: ~ 05:41 minutes
+- Parallel loop: ~ 1:39 minutes
+
 
 # To Do
 This repository has several things which are not implemented yet. Amongs others, the following implementation are planned:
