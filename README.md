@@ -24,7 +24,7 @@ You can clone this repository by running:
 	git clone https://github.com/dheinz0989/FileSizeDistributor_for_Multiprocessing
 
 # Usage
-Windows user are highly recommend to use a (__name__=="__main__")[https://www.geeksforgeeks.org/what-does-the-if-__name__-__main__-do/] statement in order to guarantee all processes are cirretly set up. 
+Windows user are highly recommend to use a [__name__=="__main__"](https://www.geeksforgeeks.org/what-does-the-if-__name__-__main__-do/) statement in order to guarantee all processes are cirretly set up. 
 
 An example usage is found in the [test](https://github.com/dheinz0989/FileSizeDistributor_for_Multiprocessing/tree/master/test) directory in this repo.
 In this example, a variety of random .txt files are generated. They contain a sequence of alphanumeric values. 
@@ -39,19 +39,22 @@ Before generating the random text files, assume that you have an /data direcotry
 To setup 100 random text files with  at least 1.000.000 and 5.000.000 character each (Caution, the generating of this text files can take quite a long time):
 
 ```
-python test/generate_random_files.py -n 100 -min 1000000 -max 5000000
+cd test
+python generate_random_files.py -n 100 -min 1000000 -max 5000000
 ```
 
 For run the testing, you can then run the two different version. For the single loop version call 
 
 ```
-python test/test.py -d ./test/data -p n -l y
+cd test
+python test.py -d ./data -p n -l y
 ```
 
 For the parallel testing version, call:
 
 ```
-python test/test.py -d ./test/data -p y
+cd test
+python test.py -d ./data -p y
 ```
 This yields a run time of appr 1:40
 
