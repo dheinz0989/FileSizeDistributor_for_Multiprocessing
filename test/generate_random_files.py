@@ -10,7 +10,7 @@ alphanumeric = list(ascii_lowercase + digits)
 
 
 def create_random_file(chars, idx=0):
-    with open(f'data/data_source_{idx}.txt', 'w+') as file:
+    with open(f'{args.directory}/data_source_{idx}.txt', 'w+') as file:
         random_string = ''
         for i in range(1,chars):
             random_string += random.choice(alphanumeric)
@@ -27,7 +27,7 @@ if __name__ == "__main__":
         "--directory",
         "-d",
         required=False,
-        default='data',
+        default='',
         type=str,
         help="A flag indicating the directory with all files"
     )
@@ -53,4 +53,5 @@ if __name__ == "__main__":
         help="Determines how many characters a text file must have at maximum"
     )
     args = parser.parse_args()
+    Path(args.directory).mkdir(parents=True, exist_ok=True)
     create_n_files(args.number,args.min_chars,args.max_chars)
